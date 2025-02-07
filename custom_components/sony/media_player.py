@@ -12,18 +12,14 @@ from sonyapilib.device import SonyDevice
 import voluptuous as vol
 
 from homeassistant.components.media_player import (
-    MediaPlayerEntity, PLATFORM_SCHEMA)
-
-from homeassistant.components.media_player.const import (
-    SUPPORT_NEXT_TRACK, SUPPORT_PAUSE, SUPPORT_PREVIOUS_TRACK, SUPPORT_TURN_ON,
-    SUPPORT_TURN_OFF, SUPPORT_PLAY, SUPPORT_PLAY_MEDIA, SUPPORT_STOP,
-    SUPPORT_VOLUME_MUTE, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_SET)
+    MediaPlayerEntity, PLATFORM_SCHEMA, MediaPlayerEntityFeature)
 
 from homeassistant.const import (
     CONF_HOST, CONF_NAME, STATE_OFF, STATE_ON, STATE_PLAYING, STATE_PAUSED)
 import homeassistant.helpers.config_validation as cv
 
-from homeassistant.util.json import load_json, save_json
+from homeassistant.util.json import load_json
+from homeassistant.helpers.json import save_json
 
 
 VERSION = '0.1.3'
@@ -52,11 +48,11 @@ _CONFIGURING = {}
 
 _LOGGER = logging.getLogger(__name__)
 
-SUPPORT_SONY = SUPPORT_PAUSE | \
-    SUPPORT_PREVIOUS_TRACK | SUPPORT_NEXT_TRACK | \
-    SUPPORT_TURN_ON | SUPPORT_TURN_OFF | \
-    SUPPORT_PLAY | SUPPORT_PLAY_MEDIA | SUPPORT_STOP | \
-    SUPPORT_VOLUME_MUTE | SUPPORT_VOLUME_STEP | SUPPORT_VOLUME_SET
+SUPPORT_SONY = MediaPlayerEntityFeature.PAUSE | \
+    MediaPlayerEntityFeature.PREVIOUS_TRACK | MediaPlayerEntityFeature.NEXT_TRACK | \
+    MediaPlayerEntityFeature.TURN_ON | MediaPlayerEntityFeature.TURN_OFF | \
+    MediaPlayerEntityFeature.PLAY | MediaPlayerEntityFeature.PLAY_MEDIA | MediaPlayerEntityFeature.STOP | \
+    MediaPlayerEntityFeature.VOLUME_MUTE | MediaPlayerEntityFeature.VOLUME_STEP | MediaPlayerEntityFeature.VOLUME_SET
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
