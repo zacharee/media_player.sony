@@ -7,6 +7,9 @@ https://github.com/dilruacs/media_player.sony
 import logging
 import time
 
+import homeassistant.components.media_player
+from homeassistant.helpers.device_registry import format_mac
+from homeassistant.helpers.entity import generate_entity_id
 from sonyapilib.device import SonyDevice
 
 import voluptuous as vol
@@ -260,6 +263,10 @@ class SonyMediaPlayerEntity(MediaPlayerEntity):
     def media_duration(self):
         """Duration of current playing media in seconds."""
         return ""
+
+    @property
+    def unique_id(self) -> str | None:
+        return f"{homeassistant.components.media_player.DOMAIN}.sony.{self.sonydevice.mac}"
 
     def turn_on(self):
         """Turn the media player on."""
